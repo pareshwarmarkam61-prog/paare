@@ -1,111 +1,169 @@
-<html>
+<!DOCTYPE html>
+<html lang="hi">
 <head>
-    <title>paare.gam</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rang Khel – Practice Game</title>
+<style>
+:root{--bg:#1e1e1e;--panel:#2a2a2a;--ink:#f3ead2;--gold:#e8c56a;--gold2:#b98a2e;--g:#1fa855;--v:#8e44d6;--r:#e03a3a;--big:#e39a35;--small:#4a86d8;color-scheme:dark}
+@media (prefers-color-scheme:light){:root{--bg:#1e1e1e}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",system-ui,sans-serif}
+body{max-width:480px;margin:0 auto;padding:env(safe-area-inset-top,0px) 12px calc(env(safe-area-inset-bottom,0px) + 16px)}
+h1{margin:14px 0 8px;text-align:center;font-size:26px;letter-spacing:1px;color:var(--gold)}
+.note{font-size:12px;text-align:center;opacity:.7;margin-bottom:10px}
+.ticket{background:linear-gradient(135deg,#f0cf7e,#c99a3c);color:#4a3208;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ticket .l{font-size:13px;font-weight:700}
+.balls{display:flex;gap:5px;margin-top:8px}
+.ball{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;border:2px solid #fff8}
+.timer{display:flex;gap:4px;align-items:center}
+.timer b{background:#222;color:#fff;font-size:24px;width:30px;height:40px;display:grid;place-items:center;border-radius:6px}
+.per{font-size:12px;margin-top:6px;text-align:right;font-weight:700}
+.coins{margin:10px 0;text-align:center;font-size:15px}
+.coins b{color:var(--gold)}
+.panel{background:var(--panel);border-radius:14px;padding:10px;margin-top:10px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cols button{border:0;border-radius:8px;padding:11px 0;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.nums{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px;background:#1c1c1c;padding:12px;border-radius:12px}
+.nums button{aspect-ratio:1;border-radius:50%;border:3px solid #fff9;font-size:24px;font-weight:700;color:#fff;cursor:pointer}
+.mult{display:flex;gap:6px;margin-top:10px;overflow-x:auto}
+.mult button{flex:1;min-width:44px;background:#333;color:#ddd;border:0;border-radius:6px;padding:9px 0;font-weight:700;cursor:pointer}
+.mult button.on{background:var(--g);color:#fff}
+.bs{display:grid;grid-template-columns:1fr 1fr;margin-top:10px;border-radius:30px;overflow:hidden}
+.bs button{border:0;padding:14px;color:#fff;font-weight:700;font-size:17px;cursor:pointer}
+button:focus-visible{outline:3px solid #fff}
+button.sel{box-shadow:inset 0 0 0 3px #fff}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tabs button{background:#333;color:#bbb;border:0;border-radius:8px;padding:12px;font-weight:700;cursor:pointer}
+.tabs button.on{background:linear-gradient(#f0cf7e,#c99a3c);color:#4a3208}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th{background:#3b3b52;padding:9px 4px}
+td{padding:10px 4px;text-align:center;border-bottom:1px solid #383838}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin:0 1px}
+.win{color:#5fe08a}.lose{color:#ff7777}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 16px);transform:translateX(-50%);background:#111;border:2px solid var(--gold);padding:12px 18px;border-radius:12px;display:none;z-index:9;text-align:center;max-width:90%}
+.sheet{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;z-index:8}
+.sheet .box{background:var(--panel);width:100%;max-width:480px;margin:0 auto;border-radius:18px 18px 0 0;padding:18px 18px calc(env(safe-area-inset-bottom,0px) + 18px)}
+.sheet .row{display:flex;gap:10px;margin-top:14px}
+.sheet .row button{flex:1;padding:13px;border:0;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer}
+.reset{display:block;margin:14px auto 0;background:none;border:1px solid #666;color:#aaa;border-radius:8px;padding:8px 14px;cursor:pointer}
+</style>
 </head>
 <body>
+<h1>RANG KHEL</h1>
+<div class="note">Sirf practice game – virtual coins, asli paisa nahi</div>
 
-    <div class="paare-box">
-    <div class="yaas-box">
-<button>0</button>
-<button>1</button>
-<button>2</button>
-<button>3</button>
-<button>4</button>
-<button>5</button>
-<button>6</button>
-<button>7</button>
-<button>8</button>
-<button>9</button>
-<button>10</button>
-        <div class="top-box">
-        <div class="top-number">
-    </div>
-    <style>
-    .paare-box{
-        background: lightblue;
-        boder:2px;
-        padding: 15px;
-        border-radius: 10px;
-     
-        width: 600%;
-        height: 100dvh;
-        justify-content: center;
-        display:flex;
-        align-items: center;
-        margin:auto;
-      
-    }
+<div class="ticket">
+  <div><div class="l">Win 1 Min</div><div class="balls" id="balls"></div></div>
+  <div><div class="timer"><b id="m1">0</b><b id="m2">0</b><span>:</span><b id="s1">0</b><b id="s2">0</b></div><div class="per" id="per"></div></div>
+</div>
+<div class="coins">Coins: <b id="bal">1000</b></div>
 
-    .yaas-box{ 
-        background: red;
-        border: 10px;
-        padding: 20px;
-        position: relative;
-        top:160px;
-        border-radius: 20px;
-        margin: 25px;
-        height: 250px;
-  
+<div class="panel">
+  <div class="cols">
+    <button style="background:var(--g)" data-pick="Green">Green</button>
+    <button style="background:var(--v)" data-pick="Violet">Violet</button>
+    <button style="background:var(--r)" data-pick="Red">Red</button>
+  </div>
+  <div class="nums" id="nums"></div>
+  <div class="mult" id="mult"></div>
+  <div class="bs">
+    <button style="background:var(--big)" data-pick="Big">Big</button>
+    <button style="background:var(--small)" data-pick="Small">Small</button>
+  </div>
+</div>
+
+<div class="tabs"><button class="on" id="t1">Game history</button><button id="t2">My history</button></div>
+<table><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table>
+<button class="reset" id="reset">Coins reset karo</button>
+
+<div class="toast" id="toast"></div>
+<div class="sheet" id="sheet"><div class="box">
+  <h3 id="sh-title" style="margin:0 0 6px"></h3>
+  <div id="sh-info" style="opacity:.8"></div>
+  <div class="row"><button id="sh-no" style="background:#444;color:#fff">Cancel</button><button id="sh-ok" style="background:var(--g);color:#fff">Confirm</button></div>
+</div></div>
+
+<script>
+const COL={0:['r','v'],1:['g'],2:['r'],3:['g'],4:['r'],5:['g','v'],6:['r'],7:['g'],8:['r'],9:['g']};
+const HEX={g:'#1fa855',r:'#e03a3a',v:'#8e44d6'};
+const grad=n=>{const c=COL[n];return c.length==1?HEX[c[0]]:`linear-gradient(135deg,${HEX[c[0]]} 50%,${HEX[c[1]]} 50%)`};
+const $=id=>document.getElementById(id);
+const ROUND=60;
+let bal=1000,mult=1,left=ROUND,period=1,pending=null,hist=[],mine=[];
+try{bal=+localStorage.getItem('rk_bal')||1000}catch(e){}
+const pid=()=>{const d=new Date();return d.toISOString().slice(0,10).replace(/-/g,'')+String(100000+period).padStart(7,'0')};
+
+// seed history
+for(let i=0;i<8;i++){hist.push({p:'seed'+i,n:Math.floor(Math.random()*10)})}
+hist.forEach((h,i)=>h.p=String(20250717100010000+i));
+period=hist.length+1;
+
+// build numbers
+$('nums').innerHTML=[...Array(10).keys()].map(n=>`<button data-pick="${n}" style="background:${grad(n)}">${n}</button>`).join('');
+$('mult').innerHTML=[1,5,10,20,50,100].map(m=>`<button data-m="${m}" class="${m==1?'on':''}">X${m}</button>`).join('');
+document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mult=+b.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x===b))});
+document.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>openBet(b.dataset.pick));
+
+function toast(t,ms=2600){const e=$('toast');e.innerHTML=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',ms)}
+function openBet(pick){
+  if(left<=5){toast('Last 5 second mein bet band hai');return}
+  if(pending){toast('Is round ki bet lag chuki hai');return}
+  const amt=10*mult;
+  if(amt>bal){toast('Coins kam hain');return}
+  $('sh-title').textContent='Select: '+pick;
+  $('sh-info').textContent='Bet: '+amt+' coins (X'+mult+')';
+  $('sheet').style.display='flex';
+  $('sh-ok').onclick=()=>{
+    if(left<=5){$('sheet').style.display='none';return}
+    bal-=amt;pending={pick,amt};save();render();$('sheet').style.display='none';toast('Bet lag gayi: '+pick)};
 }
-    .yaas-box button {
-        
-        border: none;
-        border-radius: 60%;
-        background:blue;
-        color: white;
-        font-size: 25px;
-        font-weight: bold;
-        cursor: pointer;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-        
-    }
+$('sh-no').onclick=()=>$('sheet').style.display='none';
+function save(){try{localStorage.setItem('rk_bal',bal)}catch(e){}}
 
-
-.top-box{
- background: rgb(20, 19, 19);
-        border: 3px;
-        border-radius: 20px;
-      height: 200px;
-        position: relative;
-        top:-290;
- margin: -10px;
-
+function check(n,pick){
+  const big=n>=5,c=COL[n];
+  if(/^\d$/.test(pick))return +pick===n?9:0;
+  if(pick==='Big')return big?2:0;
+  if(pick==='Small')return big?0:2;
+  const k={Green:'g',Red:'r',Violet:'v'}[pick];
+  if(!c.includes(k))return 0;
+  if(k==='v')return 4.5;
+  return (n===0||n===5)?1.5:2;
 }
+function draw(){
+  const n=Math.floor(Math.random()*10);
+  const rec={p:pid(),n};hist.unshift(rec);
+  let msg=`Result: <b>${n}</b> ${n>=5?'Big':'Small'}`;
+  if(pending){
+    const m=check(n,pending.pick),won=Math.round(pending.amt*m);
+    bal+=won;mine.unshift({p:rec.p,pick:pending.pick,amt:pending.amt,won});
+    msg+=won?`<br><span class="win">Jeet: +${won}</span>`:`<br><span class="lose">Haar: -${pending.amt}</span>`;
+    pending=null;save();
+  }
+  period++;toast(msg,3500);render();
+}
+function render(){
+  $('bal').textContent=bal;
+  $('balls').innerHTML=hist.slice(0,5).map(h=>`<div class="ball" style="background:${grad(h.n)}">${h.n}</div>`).join('');
+  $('per').textContent=pid();
+  const mm=String(Math.floor(left/60)).padStart(2,'0'),ss=String(left%60).padStart(2,'0');
+  $('m1').textContent=mm[0];$('m2').textContent=mm[1];$('s1').textContent=ss[0];$('s2').textContent=ss[1];
+  if(tab==1){
+    $('thead').innerHTML='<th>Period</th><th>Number</th><th>Big Small</th><th>Color</th>';
+    $('tbody').innerHTML=hist.slice(0,10).map(h=>`<tr><td>${String(h.p).slice(-10)}</td><td style="font-size:20px;font-weight:700;color:${HEX[COL[h.n][0]]}">${h.n}</td><td>${h.n>=5?'Big':'Small'}</td><td>${COL[h.n].map(c=>`<span class="dot" style="background:${HEX[c]}"></span>`).join('')}</td></tr>`).join('');
+  }else{
+    $('thead').innerHTML='<th>Period</th><th>Pick</th><th>Bet</th><th>Result</th>';
+    $('tbody').innerHTML=mine.length?mine.slice(0,10).map(h=>`<tr><td>${String(h.p).slice(-10)}</td><td>${h.pick}</td><td>${h.amt}</td><td class="${h.won?'win':'lose'}">${h.won?'+'+h.won:'-'+h.amt}</td></tr>`).join(''):'<tr><td colspan="4" style="padding:24px;opacity:.6">Abhi koi bet nahi lagi</td></tr>';
+  }
+}
+let tab=1;
+$('t1').onclick=()=>{tab=1;$('t1').className='on';$('t2').className='';render()};
+$('t2').onclick=()=>{tab=2;$('t2').className='on';$('t1').className='';render()};
+$('reset').onclick=()=>{bal=1000;pending=null;mine=[];save();render();toast('Coins 1000 par reset')};
 
- .top-number{
-
-     background: rgb(250, 140, 140);
-        border: 3px;
-        border-radius: 20px;
-      
-        position: relative;
-        top:-45;
- 
-
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </style>
+setInterval(()=>{left--;if(left<0){left=ROUND;draw();return}render()},1000);
+render();
+</script>
 </body>
 </html>
